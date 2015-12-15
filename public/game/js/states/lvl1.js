@@ -109,6 +109,12 @@ lvl1.prototype = {
 	    {
 	        sprite.body.velocity.x = 150;
 	    }
+	    else
+        {
+            //  Stand still
+            // sprite.animations.stop();
+            // sprite.frame = 6;
+        }
 
 	},
 

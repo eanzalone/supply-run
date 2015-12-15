@@ -11,16 +11,17 @@ loading.prototype = {
 			// load background image
 			game.load.image('background', '/static/game/background_img.png');
 			// load maps
-			// game.load.tilemap('map', 'assets/tilemaps/maps/random.csv', null, Phaser.Tilemap.CSV);
+			game.load.tilemap('map', '/static/game/maps_tilesets/random.csv', null, Phaser.Tilemap.CSV);
 			// load tilesets
-			// game.load.image('tileset_img', 'assets/tilemaps/tiles/scifi_platformTiles_32x32.png');
+			game.load.image('tileset_img', '/static/game/maps_tilesets/scifi_platformTiles_32x32.png');
 			// load player
-			// game.load.image('phaser', 'assets/sprites/phaser-dude.png');
+			game.load.spritesheet('phaser', '/static/game/sprites/survivor.png', 32, 32);
 			// load supplies
-			// game.load.image('star', 'assets/star.png');
+			game.load.image('star', '/static/game/sprites/medicine.png');
 			// load goal
-			// game.load.image('diamond', 'assets/diamond.png');
+			game.load.image('diamond', '/static/game/sprites/door_opened.png');
 			// load music
+			game.load.audio('ost', '/static/game/ost.mp3');
 		console.log('FINISHED LOADING');
 	},
 	create: function(){

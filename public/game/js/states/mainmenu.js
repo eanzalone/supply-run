@@ -10,6 +10,8 @@ mainMenu.prototype = {
 	},
 	create: function(){
 		this.game.add.button(160,320,"diamond",this.playTheGame,this);
+		music = game.add.audio('ost');
+		// music.play();
 	},
 	playTheGame: function(){
 		this.game.state.start('Level1');
