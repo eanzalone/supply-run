@@ -1,64 +1,69 @@
 <!doctype html>
 <html>
   <head>
-    <script src="/socket.io/socket.io.js"></script>
+    <meta charset="UTF-8" />
+    <!-- From Sockets Tutorial -->
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <!-- <script type="text/javascript" src="socket_chat.js"></script> -->
-    <title>Socket.IO chat</title>
-    <style>
-      #messages li:nth-child(odd) { background: #eee; }
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- File for moving out socket scripts -->
+    <script type="text/javascript" src="/static/socketchat.js"></script>
+    <!-- Phaser JS -->
+    <script src="/static/game/assets/js/phaser.js"></script>
+    <!-- STATES -->
+    <script type="text/javascript" src="/static/game/assets/js/states/loading.js"></script>
+    <script type="text/javascript" src="/static/game/assets/js/states/mainmenu.js"></script>
+    <script type="text/javascript" src="/static/game/assets/js/states/lvl1.js"></script>
+    <script type="text/javascript" src="/static/game/assets/js/states/lvl2.js"></script>
+    <!-- <script type="text/javascript" src="js/startover.js"></script> -->
+    <style type="text/css">
+        /*body {
+            margin: 0;
+        }*/
+        /*canvas {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            width: 800px;
+        }
+      #messages li:nth-child(odd) { background: #eee; }*/
     </style>
+    <title>Socket.IO chat</title>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    <script>
-      var socket = io();
-      $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-
-        $.post('/api/msgs', data, function(newMessage){
-          console.log(newMessage);
-          $('#messages').append($('<li>').text(msg));
-        });
-
-
-
-        $('#m').val('');
-
-
-
-
-        // return false;
-      });
-      socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
-      });
-
-
-
-      // $('#newFoodForm').on('submit', function(e){
-      //   e.preventDefault();
-      //   var data = $(this).serialize();
-      //   console.log(data);
-      //   $.post('/api/foods', data, function(newFood){
-      //     console.log(newFood);
-      //     $('#food-ul').prepend('<li class="list-group-item">'+newFood.name+' <span class="label label-default">'+newFood.yumminess+'</span><span class="close" data-id='+newFood.id+'>x</span></li>');
-      //   });
-      //   $('#newFoodForm').children().val('');
-      // });
-
-
-
-
-
-
-
-
-    </script>
-
+    <!-- <div class="container">
+    <div class="row"> -->
+      <div id="gameSpace" class="col-md-9">
+        <script>
+            var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameSpace');
+            game.state.add('Loading', loading);// loading bar
+            game.state.add('mainMenu', mainMenu); //title and menu
+            // settings page
+            // how to play
+            // about me
+            // credit
+            // story 1
+            game.state.add('Level1', lvl1); // level 1
+            // story 2
+            game.state.add('Level2', lvl2); // level 2
+            // etc stories and levels
+            // game over
+            game.state.start('Loading');
+        </script>
+      </div>
+      <div id="chatSpace" class="col-md-3">
+        <ul id="messages"></ul>
+        <form action="">
+          <input id="m" autocomplete="off" /><button>Send</button>
+        </form>
+      </div>
+    <!-- </div>
+    </div> -->
   </body>
 </html>
