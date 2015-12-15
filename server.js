@@ -7,11 +7,11 @@ app.get('/', function(req, res){
 });
 
 var msgs =[
-  {user: "Sushiritto", message: "quite"},
-  {user: "Green Eggs & Ham", message: "sure"},
-  {user: "Crayfish", message: "depending"},
-  {user: "Foie Gras", message: "omg"},
-  {user: "Kale", message: "meh"}
+  {message: "quite"},
+  {message: "sure"},
+  {message: "depending"},
+  {message: "omg"},
+  {message: "meh"}
 ];
 
 io.on('connection', function(socket){
@@ -46,6 +46,6 @@ app.post('/api/msgs', function(req, res){
 	res.json(newMessage);
 });
 
-http.listen(3000, function(){
+http.listen(process.env.PORT || 3000, function(){
   console.log('listening on *:3000');
 });
