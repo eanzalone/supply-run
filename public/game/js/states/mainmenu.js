@@ -9,7 +9,7 @@ mainMenu.prototype = {
 		console.log('MAIN MENU');
 	},
 	create: function(){
-		this.game.add.button(160,320,"diamond",this.playTheGame,this);
+		this.game.add.button(160,320,'medicine',this.playTheGame,this);
 		music = game.add.audio('ost');
 		// music.play();
 	},

@@ -15,16 +15,17 @@ loading.prototype = {
 			// load tilesets
 			game.load.image('tileset_img', '/static/game/maps_tilesets/scifi_platformTiles_32x32.png');
 			// load player
-			game.load.spritesheet('phaser', '/static/game/sprites/survivor.png', 32, 32);
+			game.load.spritesheet('survivor', '/static/game/sprites/survivor64.png', 64, 64);
 			// load supplies
-			game.load.image('star', '/static/game/sprites/medicine.png');
+			game.load.image('medicine', '/static/game/sprites/medicine32.png');
 			// load goal
-			game.load.image('diamond', '/static/game/sprites/door_opened.png');
+			game.load.image('locked_door', '/static/game/sprites/door_closed64.png');
+			game.load.image('open_door', '/static/game/sprites/door_opened64.png');
 			// load music
 			game.load.audio('ost', '/static/game/ost.mp3');
 		console.log('FINISHED LOADING');
 	},
 	create: function(){
-		game.state.start('mainMenu');
+		game.state.start('Level1'); //SET BACK TO MAIN MENU WHEN READY TO BUILD IT
 	}
 };

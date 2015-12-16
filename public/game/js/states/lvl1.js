@@ -4,75 +4,53 @@ var lvl1 = function(game){
 
 var score = 0;
 var scoreText;
+var bkg;
 var map;
 var layer;
 var cursors;
 var sprite;
+var doorway;
+var supplies;
 
 lvl1.prototype = {
 
-	// function create() {
 	create: function(){
 
-	    var bkg = game.add.tileSprite(0, 0, 800, 600, 'background');
+		// CREATE MAP
+	    bkg = game.add.tileSprite(0, 0, 800, 600, 'background');
 	    bkg.fixedToCamera = true;
-
 	    map = game.add.tilemap('map', 35, 35);
-
 	    map.addTilesetImage('tileset_img');
-	    
 	    layer = map.createLayer(0);
-
 	    layer.resizeWorld();
-
 	    map.setCollisionByExclusion([], true);
-
-	    sprite = game.add.sprite(50, 50, 'phaser');
-
-	    game.physics.enable(sprite);
-
-	    // sprite.body.bounce.set(0.6);
-	    // sprite.body.tilePadding.set(32);
-	    // sprite.body.bounce.y = 0.2;
-	    sprite.body.gravity.y = 300;
-	    sprite.body.collideWorldBounds = true;
-
-	    game.camera.follow(sprite);
-
 	    game.physics.arcade.gravity.y = 300;
 
+	    // SPRITE
+	    sprite = game.add.sprite(50, 50, 'survivor');
+	    sprite.animations.add('left', [8, 9, 10, 11, 12, 13, 14, 15], 12, true);
+        sprite.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7], 12, true);
+	    game.physics.enable(sprite);
+	    sprite.body.gravity.y = 300;
+	    sprite.body.collideWorldBounds = true;
+	    game.camera.follow(sprite);
 
-	    stars = game.add.group();
+	    // SUPPLIES
+	    supplies = game.add.group();
+	    supplies.enableBody = true;
+	    supplies.create(850, 400, 'medicine');
+	    supplies.create(100, 300, 'medicine');
 
-	    stars.enableBody = true;
-	    // stars.body.velocity.y = 300;
-
-	    //  Here we'll create 12 of them evenly spaced apart
-	    // for (var i = 0; i < 12; i++)
-	    // {
-	        //  Create a star inside of the 'stars' group
-	        // var star = 
-	        stars.create(850, 400, 'star');
-	        stars.create(100, 100, 'star');
-	        // star.fixedToCamera = true;
-
-	        //  Let gravity do its thing
-	        // star.body.gravity.y = 300;
-
-	        // //  This just gives each star a slightly random bounce value
-	        // star.body.bounce.y = 0.7 + Math.random() * 0.2;
-	    // }
-
+	    // DOORWAY
 	    goal = game.add.group();
-
 	    goal.enableBody = true;
-	    
-	    goal.create(500, 500, 'diamond');
+	    doorway = goal.create(500, 500, 'locked_door');
 
-
-	    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
+	    // SCORE TEXT FOR TESTING
+	    scoreText = game.add.text(16, 16, 'Level 1: 0', { fontSize: '32px', fill: '#fff' });
 	    scoreText.fixedToCamera = true;
 
+	    // MOVEMENT
 	    cursors = game.input.keyboard.createCursorKeys();
 
 	},
@@ -80,12 +58,10 @@ lvl1.prototype = {
 	update: function(){
 
 	    this.game.physics.arcade.collide(sprite, layer);
-	    this.game.physics.arcade.collide(stars, layer);
+	    this.game.physics.arcade.collide(supplies, layer);
 	    this.game.physics.arcade.collide(goal, layer);
-	    this.game.physics.arcade.overlap(sprite, stars, this.collectStar, null, this);
+	    this.game.physics.arcade.overlap(sprite, supplies, this.collectSupplies, null, this);
 	    this.game.physics.arcade.overlap(sprite, goal, this.reachGoal);
-
-	    // processCallback, callbackContext) → {boolean}
 
 
 	    //  Un-comment these to gain full control over the sprite
@@ -95,6 +71,10 @@ lvl1.prototype = {
 	    if (cursors.up.isDown)
 	    {
 	        sprite.body.velocity.y = -150;
+	        this.jumpCount = 0;
+	        console.log(this.jumpCount);
+	        this.jumpkey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+	        this.jumpkey.onDown.add(this.jumpCheck, this); //tells phaser to fire jumpCheck() ONCE per onDown event.
 	    }
 	    else if (cursors.down.isDown)
 	    {
@@ -104,29 +84,39 @@ lvl1.prototype = {
 	    if (cursors.left.isDown)
 	    {
 	        sprite.body.velocity.x = -150;
+	        sprite.animations.play('left');
 	    }
 	    else if (cursors.right.isDown)
 	    {
 	        sprite.body.velocity.x = 150;
+	        sprite.animations.play('right');
 	    }
 	    else
         {
-            //  Stand still
-            // sprite.animations.stop();
-            // sprite.frame = 6;
+            // Stand still
+            sprite.animations.stop();
+            sprite.frame = 17;
         }
 
 	},
+    jumpCheck: function(){
+       if (sprite.jumpCount < 2){
+          sprite.jump();
+          sprite.jumpCount ++;
+       }
+    },
+	collectSupplies: function(sprite, medicine){
 
-	// function collectStar (sprite, star) {
-	collectStar: function(sprite, star){
-
-	    // Removes the star from the screen
-	    star.kill();
+	    // Removes the medicine from the screen
+	    medicine.kill();
 
 	    //  Add and update the score
 	    score += 1;
-	    scoreText.text = 'Level 1: ' + score;
+	    if (score == 2){
+	    	console.log('All Supplies Collected. head to exit!');
+	    	doorway.loadTexture('open_door');
+	    }
+	    scoreText.text = 'Level 1: ' + score; //ONLY FOR TESTING
 
 	},
 	reachGoal: function(sprite, goal){
@@ -135,9 +125,11 @@ lvl1.prototype = {
 		}
 		else{
 			console.log('goal reached.');
-			game.state.start('Level2');
+			// game.state.start('Level2');
+			game.state.start('mainMenu'); //FOR TESTING ONLY
 		}
 	}
+
 
 	//when score=20 game.state.start(mainMenu)
 };
