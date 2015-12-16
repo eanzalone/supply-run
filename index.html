@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <link href='https://fonts.googleapis.com/css?family=Bangers|Gloria+Hallelujah|Permanent+Marker|Creepster|Frijole' rel='stylesheet' type='text/css'>
     <!-- From Sockets Tutorial -->
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -17,22 +18,11 @@
     <!-- STATES -->
     <script type="text/javascript" src="/static/game/js/states/loading.js"></script>
     <script type="text/javascript" src="/static/game/js/states/mainmenu.js"></script>
+    <script type="text/javascript" src="/static/game/js/states/settings.js"></script>
+    <script type="text/javascript" src="/static/game/js/states/tutorial.js"></script>
     <script type="text/javascript" src="/static/game/js/states/lvl1.js"></script>
     <script type="text/javascript" src="/static/game/js/states/lvl2.js"></script>
-    <style type="text/css">
-        /*body {
-            margin: 0;
-        }*/
-        /*canvas {
-            padding-left: 0;
-            padding-right: 0;
-            margin-left: auto;
-            margin-right: auto;
-            display: block;
-            width: 800px;
-        }
-      #messages li:nth-child(odd) { background: #eee; }*/
-    </style>
+    <link rel="stylesheet" href="/static/styles.css">
     <title>Supply Run</title>
   </head>
   <body>
@@ -43,8 +33,8 @@
             var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameSpace');
             game.state.add('Loading', loading);// loading bar
             game.state.add('mainMenu', mainMenu); //title and menu
-            // settings page
-            // how to play
+            game.state.add('settingsPg', settingsPg); // settings page
+            game.state.add('tutorialPg', tutorialPg); // how to play
             // about me
             // credit
             // story 1
@@ -56,8 +46,11 @@
             game.state.start('Loading');
         </script>
       </div>
-      <div id="chatSpace" class="col-md-3">
-        <ul id="messages"></ul>
+      <div id="chatSpace" class="col-md-3 well">
+        <div class="instruction">
+          <strong>Please Keep Chat Age Appropriate</strong>
+        </div>
+        <div id="messages"></div>
         <form action="">
           <input id="m" autocomplete="off" placeholder="Please keep messages All Ages" /><button>Send</button>
         </form>

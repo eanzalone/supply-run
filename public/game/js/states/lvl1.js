@@ -15,7 +15,6 @@ var supplies;
 lvl1.prototype = {
 
 	create: function(){
-
 		// CREATE MAP
 	    bkg = game.add.tileSprite(0, 0, 800, 600, 'background');
 	    bkg.fixedToCamera = true;
@@ -71,10 +70,6 @@ lvl1.prototype = {
 	    if (cursors.up.isDown)
 	    {
 	        sprite.body.velocity.y = -150;
-	        this.jumpCount = 0;
-	        console.log(this.jumpCount);
-	        this.jumpkey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-	        this.jumpkey.onDown.add(this.jumpCheck, this); //tells phaser to fire jumpCheck() ONCE per onDown event.
 	    }
 	    else if (cursors.down.isDown)
 	    {
@@ -99,12 +94,6 @@ lvl1.prototype = {
         }
 
 	},
-    jumpCheck: function(){
-       if (sprite.jumpCount < 2){
-          sprite.jump();
-          sprite.jumpCount ++;
-       }
-    },
 	collectSupplies: function(sprite, medicine){
 
 	    // Removes the medicine from the screen

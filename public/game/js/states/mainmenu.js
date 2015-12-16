@@ -1,19 +1,30 @@
 var mainMenu = function(game){
-	// console.log("%cStarting my awesome game", "color:white; background:red");
-
+	console.log('MAIN MENU');
 };
 
-mainMenu.prototype = {
+var sprite;
+var text;
 
+mainMenu.prototype = {
 	preload: function() {
-		console.log('MAIN MENU');
 	},
 	create: function(){
-		this.game.add.button(160,320,'medicine',this.playTheGame,this);
-		music = game.add.audio('ost');
-		// music.play();
+		// Background img
+		game.add.tileSprite(-250, -350, 1500, 1000, 'menu2');
+		// Play
+		this.game.add.button(320,300,'buttonimg',this.playTheGame,this);
+		// How to Play
+		this.game.add.button(320,350,'buttonimg',this.howToPlay,this);
+		// Settings
+		this.game.add.button(320,400,'buttonimg',this.gotoSettingsPg,this);
 	},
 	playTheGame: function(){
 		this.game.state.start('Level1');
+	},
+	howToPlay: function(){
+		this.game.state.start('tutorialPg');
+	},
+	gotoSettingsPg: function(){
+		this.game.state.start('settingsPg');
 	}
 };

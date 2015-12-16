@@ -1,6 +1,4 @@
 var loading = function(game){
-	// console.log("%cStarting my awesome game", "color:white; background:red");
-
 };
 
 loading.prototype = {
@@ -8,8 +6,12 @@ loading.prototype = {
 	preload: function() {
 
 		console.log('LOADING...');
-			// load background image
-			game.load.image('background', '/static/game/background_img.png');
+			// load background images
+			game.load.image('background', '/static/game/images/game_background.png');
+			game.load.image('menu1', '/static/game/images/menu_img1.png');
+			game.load.image('menu2', '/static/game/images/menu_img2.png');
+			game.load.image('menu3', '/static/game/images/menu_img3.png');
+			game.load.image('menu4', '/static/game/images/menu_img4.png');
 			// load maps
 			game.load.tilemap('map', '/static/game/maps_tilesets/random.csv', null, Phaser.Tilemap.CSV);
 			// load tilesets
@@ -21,11 +23,17 @@ loading.prototype = {
 			// load goal
 			game.load.image('locked_door', '/static/game/sprites/door_closed64.png');
 			game.load.image('open_door', '/static/game/sprites/door_opened64.png');
+			// load buttons
+			game.load.image('buttonimg', '/static/game/sprites/button150x50.png');
 			// load music
 			game.load.audio('ost', '/static/game/ost.mp3');
 		console.log('FINISHED LOADING');
 	},
 	create: function(){
-		game.state.start('Level1'); //SET BACK TO MAIN MENU WHEN READY TO BUILD IT
+		// Music
+		// music = game.add.audio('ost');
+		// music.play();
+		// console.log('Music Playing');
+		game.state.start('mainMenu');
 	}
 };
