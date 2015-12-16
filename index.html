@@ -23,7 +23,7 @@
     <script type="text/javascript" src="/static/game/js/states/lvl1.js"></script>
     <script type="text/javascript" src="/static/game/js/states/lvl2.js"></script>
     <link rel="stylesheet" href="/static/styles.css">
-    <title>Supply Run</title>
+    <title>Supply Run - A Zombie Survival</title>
   </head>
   <body>
     <!-- <div class="container">
@@ -46,16 +46,24 @@
             game.state.start('Loading');
         </script>
       </div>
-      <div id="chatSpace" class="col-md-3 well">
-        <div class="instruction">
-          <strong>Please Keep Chat Age Appropriate</strong>
+      <div id="chatSpace" class="col-md-3 col-md-offset-0 col-sm-offset-1 col-sm-10">
+        <div class="well">
+          <div class="instruction">
+            <strong>Please Keep Chat Age Appropriate</strong>
+          </div>
+          <div id="messages"></div>
+          <form action="">
+            <input id="m" autocomplete="off" placeholder="Please keep messages All Ages" /><button>Send</button>
+          </form>
         </div>
-        <div id="messages"></div>
-        <form action="">
-          <input id="m" autocomplete="off" placeholder="Please keep messages All Ages" /><button>Send</button>
-        </form>
+        <div id="popovers">
+          <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+            Version 1.0.0
+          </button>
+          <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+            Credit
+          </button>
+        </div>
       </div>
-    <!-- </div>
-    </div> -->
   </body>
 </html>

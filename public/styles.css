@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-image: url('/static/game/images/site_background.jpg');
+  /*background-image: url('/static/game/images/site_background.jpg');*/
 }
 canvas {
   margin-top: 50px;
@@ -11,9 +11,17 @@ canvas {
   display: block;
   width: 800px;
 }
+.well {
+  margin-top: 40px;
+}
 #messages {
   list-style-type: none;
+  height: 475px;
+  overflow: scroll;
 }
 #messages li:nth-child(odd) {
   background: #eee;
+}
+#popovers {
+  text-align: center;
 }
