@@ -45,9 +45,8 @@ loading.prototype = {
 	create: function(){
 		// Music
 		music = game.add.audio('ost');
-		// music.play();
-		// console.log('Music Begining');
-		// game.state.start('mainMenu');
-		game.state.start('chapter3');
+		music.play();
+		console.log('Music Begining');
+		game.state.start('mainMenu');
 	}
 };
