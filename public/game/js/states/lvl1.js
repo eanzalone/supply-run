@@ -174,7 +174,6 @@ level1.prototype = {
 		else{
 			console.log('goal reached.');
 			game.state.start('chapter2');
-			// game.state.start('mainMenu'); //FOR TESTING ONLY
 		}
 	},
 	zombieDies: function(bullet, zombie){

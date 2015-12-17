@@ -1,7 +1,7 @@
 body {
   margin: 0;
   /*background-image: url('/static/game/images/site_background.jpg');*/
-  /*font-family: 'Bangers';*/
+  font-family: 'Bangers';
 }
 canvas {
   margin-top: 50px;
@@ -14,13 +14,12 @@ canvas {
 }
 .well {
   margin-top: 40px;
-  /*font-family: 'Permanent Marker';*/
+  font-family: 'Helvetica';
 }
 #messages {
   list-style-type: none;
   height: 475px;
   overflow: scroll;
-  /*font-family: 'Gloria Hallelujah';*/
 }
 #messages li:nth-child(odd) {
   background: #eee;

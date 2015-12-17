@@ -29,9 +29,12 @@ loading.prototype = {
 			// load buttons
 			game.load.image('buttonimg', '/static/game/sprites/button150x50.png');
 			// load zombies
-			game.load.spritesheet('zombie', '/static/game/sprites/zombie64.png', 64, 64);
+			game.load.spritesheet('zombie', '/static/game/sprites/zombie64.png', 25, 64);
 			// load bullets
 			game.load.image('bullet', '/static/game/sprites/bullet.png');
+			// load death sprites
+			game.load.spritesheet('survivorDeath', '/static/game/sprites/survivorDeath64.png', 64, 64);
+			game.load.spritesheet('zombieDeath', '/static/game/sprites/zombieDeath64.png', 64, 64);
 			// load music
 			game.load.audio('ost', '/static/game/ost.mp3');
 			// Add the loadingbar to the scene:
@@ -41,8 +44,8 @@ loading.prototype = {
 		// Music
 		music = game.add.audio('ost');
 		// music.play();
-		// console.log('Music Playing');
-		// game.state.start('mainMenu');
-		game.state.start('level1');
+		// console.log('Music Begining');
+		game.state.start('mainMenu');
+		// game.state.start('settingsPg');
 	}
 };
