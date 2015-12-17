@@ -16,34 +16,38 @@
     <!-- Phaser JS -->
     <script src="/static/game/js/phaser.js"></script>
     <!-- STATES -->
+    <script type="text/javascript" src="/static/game/js/states/initState.js"></script>
     <script type="text/javascript" src="/static/game/js/states/loading.js"></script>
     <script type="text/javascript" src="/static/game/js/states/mainmenu.js"></script>
     <script type="text/javascript" src="/static/game/js/states/settings.js"></script>
     <script type="text/javascript" src="/static/game/js/states/tutorial.js"></script>
     <script type="text/javascript" src="/static/game/js/states/lvl1.js"></script>
     <script type="text/javascript" src="/static/game/js/states/lvl2.js"></script>
+    <script type="text/javascript" src="/static/game/js/states/chapter1.js"></script>
+    <script type="text/javascript" src="/static/game/js/states/chapter2.js"></script>
+    <script type="text/javascript" src="/static/game/js/states/tobeContinued.js"></script>
     <link rel="stylesheet" href="/static/styles.css">
-    <title>Supply Run - A Zombie Survival</title>
+    <title>Supply Run - Zombie Survival</title>
   </head>
   <body>
-    <!-- <div class="container">
-    <div class="row"> -->
       <div id="gameSpace" class="col-md-9">
         <script>
             var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameSpace');
-            game.state.add('Loading', loading);// loading bar
+            game.state.add('initState', initState);// add in loading bar
+            game.state.add('loading', loading);// loading bar
             game.state.add('mainMenu', mainMenu); //title and menu
             game.state.add('settingsPg', settingsPg); // settings page
             game.state.add('tutorialPg', tutorialPg); // how to play
             // about me
             // credit
-            // story 1
-            game.state.add('Level1', lvl1); // level 1
-            // story 2
-            game.state.add('Level2', lvl2); // level 2
+            game.state.add('chapter1', chapter1);// story 1
+            game.state.add('level1', level1); // level 1
+            game.state.add('chapter2', chapter2);// story 2
+            game.state.add('level2', level2); // level 2
             // etc stories and levels
+            game.state.add('tobeContinued', tobeContinued); // to be continued
             // game over
-            game.state.start('Loading');
+            game.state.start('initState');
         </script>
       </div>
       <div id="chatSpace" class="col-md-3 col-md-offset-0 col-sm-offset-1 col-sm-10">
@@ -53,16 +57,21 @@
           </div>
           <div id="messages"></div>
           <form action="">
-            <input id="m" autocomplete="off" placeholder="Please keep messages All Ages" /><button>Send</button>
+            <input id="nickname" autocomplete="off" placeholder="Nickname" /><input id="m" autocomplete="off" placeholder="Chatbox" /><button>Send</button>
           </form>
         </div>
         <div id="popovers">
-          <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+          <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Coming Soon: Kill Zombies in order to collect supplies">
             Version 1.0.0
           </button>
-          <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+          <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="XXXXXX">
             Credit
           </button>
+          <script>
+            $(function () {
+              $('[data-toggle="popover"]').popover()
+            });
+          </script>
         </div>
       </div>
   </body>

@@ -1,9 +1,12 @@
+// LOADS IN ALL GAME ASSETS
 var loading = function(game){
 };
 
 loading.prototype = {
 
 	preload: function() {
+		var loadingBar = game.add.sprite(game.world.centerX - 240, game.world.centerY - 35, 'loading');
+		this.load.setPreloadSprite(loadingBar);
 
 		console.log('LOADING...');
 			// load background images
@@ -25,15 +28,21 @@ loading.prototype = {
 			game.load.image('open_door', '/static/game/sprites/door_opened64.png');
 			// load buttons
 			game.load.image('buttonimg', '/static/game/sprites/button150x50.png');
+			// load zombies
+			game.load.spritesheet('zombie', '/static/game/sprites/zombie64.png', 64, 64);
+			// load bullets
+			game.load.image('bullet', '/static/game/sprites/bullet.png');
 			// load music
 			game.load.audio('ost', '/static/game/ost.mp3');
+			// Add the loadingbar to the scene:
 		console.log('FINISHED LOADING');
 	},
 	create: function(){
 		// Music
-		// music = game.add.audio('ost');
+		music = game.add.audio('ost');
 		// music.play();
 		// console.log('Music Playing');
-		game.state.start('mainMenu');
+		// game.state.start('mainMenu');
+		game.state.start('level1');
 	}
 };

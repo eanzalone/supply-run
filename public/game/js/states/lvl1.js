@@ -1,9 +1,7 @@
-var lvl1 = function(game){
-	console.log('LEVEL 1');
+var level1 = function(game){
 };
 
-var score = 0;
-var scoreText;
+var score;
 var bkg;
 var map;
 var layer;
@@ -12,9 +10,10 @@ var sprite;
 var doorway;
 var supplies;
 
-lvl1.prototype = {
+level1.prototype = {
 
 	create: function(){
+		console.log('LEVEL 1');
 		// CREATE MAP
 	    bkg = game.add.tileSprite(0, 0, 800, 600, 'background');
 	    bkg.fixedToCamera = true;
@@ -45,9 +44,7 @@ lvl1.prototype = {
 	    goal.enableBody = true;
 	    doorway = goal.create(500, 500, 'locked_door');
 
-	    // SCORE TEXT FOR TESTING
-	    scoreText = game.add.text(16, 16, 'Level 1: 0', { fontSize: '32px', fill: '#fff' });
-	    scoreText.fixedToCamera = true;
+	    score = 0;
 
 	    // MOVEMENT
 	    cursors = game.input.keyboard.createCursorKeys();
@@ -62,7 +59,11 @@ lvl1.prototype = {
 	    this.game.physics.arcade.overlap(sprite, supplies, this.collectSupplies, null, this);
 	    this.game.physics.arcade.overlap(sprite, goal, this.reachGoal);
 
+	    this.movePlayer();
 
+
+	},
+	movePlayer: function(){
 	    //  Un-comment these to gain full control over the sprite
 	    sprite.body.velocity.x = 0;
 	    // sprite.body.velocity.y = 0;
@@ -71,12 +72,12 @@ lvl1.prototype = {
 	    {
 	        sprite.body.velocity.y = -150;
 	    }
-	    else if (cursors.down.isDown)
+	    if (cursors.down.isDown)
 	    {
 	        sprite.body.velocity.y = 150;
 	    }
 
-	    if (cursors.left.isDown)
+	    else if (cursors.left.isDown)
 	    {
 	        sprite.body.velocity.x = -150;
 	        sprite.animations.play('left');
@@ -87,12 +88,14 @@ lvl1.prototype = {
 	        sprite.animations.play('right');
 	    }
 	    else
-        {
-            // Stand still
-            sprite.animations.stop();
-            sprite.frame = 17;
-        }
-
+	    {
+	        // Stand still
+	        sprite.animations.stop();
+	        sprite.frame = 17;
+	    }
+	//     if (cursors.up.isDown && sprite.body.touching.down) {
+	// 	    sprite.body.velocity.y = -320; 
+	//     }
 	},
 	collectSupplies: function(sprite, medicine){
 
@@ -101,11 +104,11 @@ lvl1.prototype = {
 
 	    //  Add and update the score
 	    score += 1;
+	    console.log('Supplies Collected: '+score+'/2');
 	    if (score == 2){
 	    	console.log('All Supplies Collected. head to exit!');
 	    	doorway.loadTexture('open_door');
 	    }
-	    scoreText.text = 'Level 1: ' + score; //ONLY FOR TESTING
 
 	},
 	reachGoal: function(sprite, goal){
@@ -114,8 +117,8 @@ lvl1.prototype = {
 		}
 		else{
 			console.log('goal reached.');
-			// game.state.start('Level2');
-			game.state.start('mainMenu'); //FOR TESTING ONLY
+			game.state.start('chapter2');
+			// game.state.start('mainMenu'); //FOR TESTING ONLY
 		}
 	}
 
