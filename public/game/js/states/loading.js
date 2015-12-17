@@ -16,7 +16,9 @@ loading.prototype = {
 			game.load.image('menu3', '/static/game/images/menu_img3.png');
 			game.load.image('menu4', '/static/game/images/menu_img4.png');
 			// load maps
-			game.load.tilemap('map', '/static/game/maps_tilesets/random.csv', null, Phaser.Tilemap.CSV);
+			game.load.tilemap('lvl1map', '/static/game/maps_tilesets/level1.csv', null, Phaser.Tilemap.CSV);
+			game.load.tilemap('lvl2map', '/static/game/maps_tilesets/level2.csv', null, Phaser.Tilemap.CSV);
+			game.load.tilemap('lvl3map', '/static/game/maps_tilesets/level3.csv', null, Phaser.Tilemap.CSV);
 			// load tilesets
 			game.load.image('tileset_img', '/static/game/maps_tilesets/scifi_platformTiles_32x32.png');
 			// load player
@@ -44,8 +46,7 @@ loading.prototype = {
 		// Music
 		music = game.add.audio('ost');
 		music.play();
-		// console.log('Music Begining');
+		console.log('Music Begining');
 		game.state.start('mainMenu');
-		// game.state.start('settingsPg');
 	}
 };

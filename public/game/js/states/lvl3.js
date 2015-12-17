@@ -1,4 +1,4 @@
-var level1 = function(game){
+var level3 = function(game){
 };
 
 var score;
@@ -13,14 +13,14 @@ var bullet;
 var bulletTime = 0;
 var zombie;
 
-level1.prototype = {
+level3.prototype = {
 
 	create: function(){
-		console.log('LEVEL 1');
+		console.log('LEVEL 3');
 		// CREATE MAP
 	    bkg = game.add.tileSprite(0, 0, 800, 600, 'background');
 	    bkg.fixedToCamera = true;
-	    map = game.add.tilemap('lvl1map', 32, 32);
+	    map = game.add.tilemap('lvl3map', 32, 32);
 	    map.addTilesetImage('tileset_img');
 	    layer = map.createLayer(0);
 	    layer.resizeWorld();
@@ -31,7 +31,7 @@ level1.prototype = {
 	    score = 0;
 
 	    // SPRITE
-	    sprite = game.add.sprite(10, 1000, 'survivor');
+	    sprite = game.add.sprite(50, 900, 'survivor');
 	    sprite.animations.add('left', [8, 9, 10, 11, 12, 13, 14, 15], 10, true);
         sprite.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
 	    game.physics.enable(sprite);
@@ -42,28 +42,26 @@ level1.prototype = {
 	    // SUPPLIES
 	    supplies = game.add.group();
 	    supplies.enableBody = true;
-	    supplies.create(1520, 1000, 'medicine');
-	    supplies.create(25, 800, 'medicine');
-	    supplies.create(900, 10, 'medicine');
-	    supplies.create(600, 550, 'medicine');
-	    supplies.create(1100, 100, 'medicine');
-	    supplies.create(50, 50, 'medicine');
-	    supplies.create(1500, 800, 'medicine');
+	    supplies.create(450, 800, 'medicine');
+	    supplies.create(1400, 800, 'medicine');
+	    supplies.create(700, 10, 'medicine');
 
 	    // DOORWAY
 	    goal = game.add.group();
 	    goal.enableBody = true;
-	    doorway = goal.create(1500, 20, 'locked_door');
+	    doorway = goal.create(1500, 1000, 'locked_door');
 
 	    // ZOMBIES
 	    zombies = game.add.group();
 	    zombies.enableBody = true;
-	    zombies.create(1300, 800, 'zombie');
-	    zombies.create(1380, 600, 'zombie');
-	    zombies.create(700, 260, 'zombie');
-	    zombies.create(1450, 1000, 'zombie');
-	    zombies.create(600, 1000, 'zombie');
-	    zombies.create(475, 600, 'zombie');
+	    zombies.create(150, 900, 'zombie');
+	    zombies.create(300, 770, 'zombie');
+	    zombies.create(450, 1000, 'zombie');
+	    zombies.create(450, 100, 'zombie');
+	    zombies.create(600, 100, 'zombie');
+	    zombies.create(800, 100, 'zombie');
+	    zombies.create(200, 100, 'zombie');
+	    zombies.create(1200, 100, 'zombie');
 
 	    // BULLETS
 	    bullets = game.add.group();
@@ -170,20 +168,20 @@ level1.prototype = {
 
 	    //  Add and update the score
 	    score += 1;
-	    console.log('Supplies Collected: '+score+'/7');
-	    if (score == 7){
+	    console.log('Supplies Collected: '+score+'/3');
+	    if (score == 3){
 	    	console.log('All Supplies Collected. head to exit!');
 	    	doorway.loadTexture('open_door');
 	    }
 
 	},
 	reachGoal: function(sprite, goal){
-		if (score < 7){
+		if (score < 3){
 			console.log('collect all supplies');
 		}
 		else{
 			console.log('goal reached.');
-			game.state.start('chapter2');
+			game.state.start('tobeContinued');
 		}
 	},
 	zombieDies: function(bullet, zombie){
