@@ -9,6 +9,9 @@ var cursors;
 var sprite;
 var doorway;
 var supplies;
+var bullet;
+var bulletTime = 0;
+var zombie;
 
 level1.prototype = {
 
@@ -23,6 +26,9 @@ level1.prototype = {
 	    layer.resizeWorld();
 	    map.setCollisionByExclusion([], true);
 	    game.physics.arcade.gravity.y = 300;
+
+	    // TRACK COLLECTED SUPPLIES
+	    score = 0;
 
 	    // SPRITE
 	    sprite = game.add.sprite(50, 50, 'survivor');
@@ -44,29 +50,79 @@ level1.prototype = {
 	    goal.enableBody = true;
 	    doorway = goal.create(500, 500, 'locked_door');
 
-	    score = 0;
+	    // ZOMBIES
+	    zombies = game.add.group();
+	    zombies.enableBody = true;
+	    zombies.create(600, 100, 'zombie');
+	    zombies.create(400, 200, 'zombie');
+
+	    // BULLETS
+	    bullets = game.add.group();
+        bullets.enableBody = true;
+        bullets.physicsBodyType = Phaser.Physics.ARCADE;
+        for (i = 0; i < 20; i++)
+        {
+            var b = bullets.create(sprite.x + 10, sprite.y - 20, 'bullet');
+            b.name = 'bullet' + i;
+            b.exists = false;
+            b.visible = false;
+            b.checkWorldBounds = true;
+            b.events.onOutOfBounds.add(this.resetBullet, this);
+        }
 
 	    // MOVEMENT
 	    cursors = game.input.keyboard.createCursorKeys();
+	    game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
 
 	},
 
 	update: function(){
-
+		// HIT MAP
 	    this.game.physics.arcade.collide(sprite, layer);
 	    this.game.physics.arcade.collide(supplies, layer);
 	    this.game.physics.arcade.collide(goal, layer);
+	    this.game.physics.arcade.collide(zombies, layer);
+	    // INTERACTIVE SPRITES
 	    this.game.physics.arcade.overlap(sprite, supplies, this.collectSupplies, null, this);
 	    this.game.physics.arcade.overlap(sprite, goal, this.reachGoal);
+	    this.game.physics.arcade.overlap(sprite, zombies, this.survivorDies);
+	    this.game.physics.arcade.overlap(bullets, zombies, this.zombieDies);
 
 	    this.movePlayer();
 
+	    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
+        {
+            this.fireBullet(sprite);
+            // console.log(bullet);
+        }
 
+
+	},
+	fireBullet: function(sprite) {
+
+	    if (game.time.now > bulletTime)
+	    {
+	    	// console.log('inside the if statment');
+	        bullet = bullets.getFirstExists(false);
+
+	        if (bullet)
+	        {
+	        	// console.log(bullet);
+	        	// console.log('inside if(bullet)');
+	            bullet.reset(sprite.x + 50, sprite.y + 25);
+	            bullet.body.velocity.x = 300;
+	            bullet.body.allowGravity = false;
+	            bulletTime = game.time.now + 150;
+	        }
+	    }
+	},
+	//  Called if the bullet goes out of the screen
+	resetBullet: function(bullet) {
+	    bullet.kill();
 	},
 	movePlayer: function(){
 	    //  Un-comment these to gain full control over the sprite
 	    sprite.body.velocity.x = 0;
-	    // sprite.body.velocity.y = 0;
 
 	    if (cursors.up.isDown)
 	    {
@@ -120,8 +176,12 @@ level1.prototype = {
 			game.state.start('chapter2');
 			// game.state.start('mainMenu'); //FOR TESTING ONLY
 		}
+	},
+	zombieDies: function(bullet, zombie){
+		bullet.kill();
+		zombie.kill();
+	},
+	survivorDies: function(){
+		game.state.start('gameover');
 	}
-
-
-	//when score=20 game.state.start(mainMenu)
 };

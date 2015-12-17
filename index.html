@@ -26,6 +26,7 @@
     <script type="text/javascript" src="/static/game/js/states/chapter1.js"></script>
     <script type="text/javascript" src="/static/game/js/states/chapter2.js"></script>
     <script type="text/javascript" src="/static/game/js/states/tobeContinued.js"></script>
+    <script type="text/javascript" src="/static/game/js/states/gameover.js"></script>
     <link rel="stylesheet" href="/static/styles.css">
     <title>Supply Run - Zombie Survival</title>
   </head>
@@ -46,7 +47,7 @@
             game.state.add('level2', level2); // level 2
             // etc stories and levels
             game.state.add('tobeContinued', tobeContinued); // to be continued
-            // game over
+            game.state.add('gameover', gameover); // game over
             game.state.start('initState');
         </script>
       </div>
